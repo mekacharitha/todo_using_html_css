@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>
+    <title>To Do App</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js "></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+   
+    <input type="text" class="txtb" placeholder="Add a Task">
+    <h3>Not Completed</h3>
+    <div class="notComp">
+        
+       <!--<div class="task">
+           Task <input type="text" class="textBox">-->
+            <!-- <p class="dT"  id="dT"> abc </p> 
+            <i class="fas fa-trash-alt"></i>
+            <i class="fas fa-user-edit"></i>
+            <i class="fas fa-check"></i>
+        </div>  --> 
+
+    </div>
+
+    <div class="comp">
+        <h3>Completed</h3>
+       <!-- <div class="task">
+            task
+            <i class="fas fa-trash-alt"></i>
+        </div>
+
+        <div class="task">
+            task
+            <i class="fas fa-trash-alt"></i>
+        </div> -->
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(".txtb").on("keyup",function(e){
+        if(e.keyCode == 13 && $(".txtb").val()!="")
+        {
+            var dt=new Date();
+            var dateObj = dt.toLocaleString('en-GB');
+           // var space="                 ";
+           // let text= `${$(".txtb").val()}   ${dateObj}`;
+            var task=$("<div class='task'></div>").text($(".txtb").val())
+
+           // document.getElementById("dT").innerHTML =dateObj;
+            var xyz= $("<div class='dT'></div>").text(dateObj);
+            var del = $(" <i class='fas fa-trash-alt'></i>").click(function(){
+                var p =$(this).parent();
+                p.fadeOut(function(){
+                    p.remove();
+                });
+            });
+            var edit =$(" <i class='fas fa-user-edit'></i>").click(function(){
+                var p =$(this).parent();
+                var inp = $("<input/>").val(p.text());
+                p.replaceWith(inp);
+                var save=function(){
+                    var taskedit=$("<div class='task'></div>").text(inp.val());
+                    inp.replaceWith(taskedit);
+
+                    var del = $(" <i class='fas fa-trash-alt'></i>").click(function(){
+                        var p =$(this).parent();
+                        p.fadeOut(function(){
+                            p.remove();
+                        });
+                     });
+
+                     var check= $("<i class='fas fa-check'></i>").click(function(){
+                         var p=$(this).parent();
+                         p.fadeOut(function(){
+                        $(".comp").append(p);
+                        p.fadeIn();
+                    })
+                    $(this).remove();
+                       // p.toggleClass("completed")
+                        //$(".comp").append(p)
+                     });
+
+                    taskedit.append(del,check,edit,xyz);
+                    $(".notComp").prepend(taskedit)
+                };
+                inp.one('blur',save).focus();
+
+            });
+            var check= $("<i class='fas fa-check'></i>").click(function(){
+                    var p=$(this).parent();
+                    p.fadeOut(function(){
+                        $(".comp").append(p);
+                        p.fadeIn();
+                    })
+                    $(this).remove();
+                    $(edit).remove();
+                    // p.toggleClass("completed")
+                    // $(".comp").append(p)
+
+            });
+
+            task.append(del,check,edit,xyz);
+            $(".notComp").prepend(task)
+            $(".txtb").val("");
+        }  
+    });
+ 
+</script>
+
+
+
+</body>
+
+</html>
